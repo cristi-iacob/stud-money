@@ -21,8 +21,8 @@ class User(AbstractUser):
         choices=LocationEnum.choices,
         default=LocationEnum.CJ,
     )
-    def __str__(self):
-        return self.username+': '+self.role
+    #def __str__(self):
+     #   return self.username+': '+self.role
 
 
 class Task(models.Model):
@@ -43,5 +43,5 @@ class Task(models.Model):
 class AcceptedTasks(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.user+' '+self.task
+    #def __str__(self):
+     #   return self.user+' '+self.task
