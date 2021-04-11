@@ -36,3 +36,12 @@ def add_task(request):
     else:
         form = AddTaskForm()
     return render(request, "add_task.html", {'form': form})
+
+def view_tasks(request):
+    context = {
+        'tasks': Task.objects.all(),
+        'title': 'Tasks'
+    }
+    for task in Task.objects.all():
+        print(task.id, task.owner, task.name, task.starttime, task.location, task.description, task.reward)
+    return render(request, 'view_tasks.html', context)
