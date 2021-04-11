@@ -2,7 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 
 from StudMoney.forms import SignUpForm, AddTaskForm
-from app.models import Task
+from app.models import Task, AcceptedTasks
 
 def signup(request):
     if request.method == 'POST':
@@ -42,6 +42,30 @@ def view_tasks(request):
         'tasks': Task.objects.all(),
         'title': 'Tasks'
     }
-    for task in Task.objects.all():
-        print(task.id, task.owner, task.name, task.starttime, task.location, task.description, task.reward)
+
+    return render(request, 'view_tasks.html', context)
+
+def view_posted_tasks(request):
+    user = request.user
+    context = {
+        'tasks': Task.objects.all().filter(owner=user),
+        'title': 'Your tasks'
+    }
+
+    return render(request, 'view_tasks.html', context)
+
+def view_accepted_tasks(request):
+    user = request.user
+    accepted_tasks = AcceptedTasks.objects.filter(user=user)
+    tasks = []
+
+    for accepted_task in accepted_tasks:
+        for task in Task.objects.all():
+            if accepted_task.task == task:
+                tasks.append(task)
+    context = {
+        'tasks': tasks,
+        'title': 'Your accepted tasks'
+    }
+
     return render(request, 'view_tasks.html', context)
