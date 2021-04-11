@@ -22,8 +22,8 @@ class User(AbstractUser):
         default=LocationEnum.CJ,
     )
     email = models.CharField(max_length=100)
-    #def __str__(self):
-     #   return self.username+': '+self.role
+    def __str__(self):
+        return self.username
 
 
 class Task(models.Model):

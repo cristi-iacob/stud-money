@@ -1,0 +1,22 @@
+<body>
+    <h1>All tasks</h1>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+</style>
+    <table style="width: 100%">
+    {% for task in tasks %}
+        <tr>
+            <th> {{ task.name }} </th>
+            <th> {{ task.starttime }} </th>
+            <th> {{ task.location }} </th>
+            <th> {{ task.description }} </th>
+            <th> {{ task.reward }} </th>
+            <th> {{ task.owner }} </th>
+        </tr>
+    {% endfor %}
+    </table>
+    </body>
+</html>
