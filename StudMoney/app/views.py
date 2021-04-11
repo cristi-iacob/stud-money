@@ -52,7 +52,7 @@ def view_posted_tasks(request):
         'title': 'Your tasks'
     }
 
-    return render(request, 'view_tasks.html', context)
+    return render(request, 'view_posted_tasks.html', context)
 
 def view_accepted_tasks(request):
     user = request.user
