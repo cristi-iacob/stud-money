@@ -11,7 +11,7 @@ class RoleEnum(models.TextChoices):
 
 
 class User(AbstractUser):
-    location = models.CharField(max_length=30, blank=True)
+    name=models.CharField(max_length=100)
     birth_date = models.DateField(null=True, blank=True)
     role=models.CharField(max_length=100,
         choices=RoleEnum.choices,
@@ -21,6 +21,7 @@ class User(AbstractUser):
         choices=LocationEnum.choices,
         default=LocationEnum.CJ,
     )
+    email = models.CharField(max_length=100)
     #def __str__(self):
      #   return self.username+': '+self.role
 
