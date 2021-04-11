@@ -55,6 +55,9 @@ def view_tasks(request):
     return render(request, 'view_tasks.html', context)
 
 def view_posted_tasks(request):
+    if request.method == "POST":
+        task_id = int(request.POST.get("task_id", ""))
+        Task.objects.get(id=task_id).delete()
     user = request.user
     context = {
         'tasks': Task.objects.all().filter(owner=user),
@@ -64,6 +67,12 @@ def view_posted_tasks(request):
     return render(request, 'view_posted_tasks.html', context)
 
 def view_accepted_tasks(request):
+    if request.method == "POST":
+        task_id = int(request.POST.get("task_id", ""))
+        AcceptedTasks.objects.filter(task__id=task_id).delete()
+        task = Task.objects.get(id=task_id)
+        task.available = 1
+        task.save()
     user = request.user
     accepted_tasks = AcceptedTasks.objects.filter(user=user)
     tasks = []
