@@ -1,5 +1,5 @@
 <body>
-    <h1>All tasks</h1>
+    <h1>Your accepted tasks</h1>
     <style>
         table, th, td {
             border: 1px solid black;
@@ -23,6 +23,13 @@
             <th> {{ task.description }} </th>
             <th> {{ task.reward }} </th>
             <th> {{ task.owner }} </th>
+            <th>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{task.id}}" name="task_id">
+                    <button type="Submit">Delete</button>
+                </form>
+            </th>
         </tr>
     {% endfor %}
     </table>
