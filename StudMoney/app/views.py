@@ -1,5 +1,6 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
+from django import forms
 
 from StudMoney.forms import SignUpForm, AddTaskForm
 from app.models import Task, AcceptedTasks
@@ -38,8 +39,16 @@ def add_task(request):
     return render(request, "add_task.html", {'form': form})
 
 def view_tasks(request):
+    if request.method == "POST":
+        task_id = int(request.POST.get("reserve_task", ""))
+        user = request.user
+        task = Task.objects.get(id=task_id)
+        task.available = 0
+        task.save()
+        accepted_task = AcceptedTasks(user=user, task=task)
+        accepted_task.save()
     context = {
-        'tasks': Task.objects.all(),
+        'tasks': Task.objects.filter(available=1),
         'title': 'Tasks'
     }
 
@@ -68,4 +77,4 @@ def view_accepted_tasks(request):
         'title': 'Your accepted tasks'
     }
 
-    return render(request, 'view_tasks.html', context)
+    return render(request, 'view_accepted_tasks.html', context)

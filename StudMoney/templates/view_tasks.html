@@ -23,6 +23,13 @@
             <th> {{ task.description }} </th>
             <th> {{ task.reward }} </th>
             <th> {{ task.owner }} </th>
+            <th>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{task.id}}" name="reserve_task">
+                    <button type="Submit">Reserve</button>
+                </form>
+            </th>
         </tr>
     {% endfor %}
     </table>
