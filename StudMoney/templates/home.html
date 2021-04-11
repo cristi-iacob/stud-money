@@ -7,6 +7,10 @@
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
   <p><a href="{% url 'logout' %}">Log Out</a></p>
+  Do you want to add a new task?
+  <p><a href="add_task">
+    <input type="button" value="Add Task"/>
+  </a></p>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Log In</a>

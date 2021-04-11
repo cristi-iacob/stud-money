@@ -21,6 +21,7 @@ from app import views as core_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('add_task/', core_views.add_task, name="add_task"),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('signup/', core_views.signup, name='signup')
 ]
